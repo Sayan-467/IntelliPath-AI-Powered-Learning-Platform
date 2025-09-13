@@ -1,0 +1,81 @@
+/* Tailwind core */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme tokens */
+:root{
+  --brand-500: #2563eb; /* blue-600 fallback */
+  --brand-600: #1d4ed8;
+  --muted: #6b7280;
+  --card-bg: rgba(255,255,255,0.8);
+}
+
+/* App wide resets */
+html, body, #__next { height: 100%; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* Container utility */
+.container-max {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(90deg, rgba(37,99,235,0.06), rgba(37,99,235,0.02));
+  backdrop-filter: blur(6px);
+}
+.navbar .brand {
+  font-weight: 700;
+  color: var(--brand-500);
+  letter-spacing: -0.02em;
+}
+.nav-link {
+  color: rgba(17,24,39,0.85);
+  transition: color .15s, transform .12s;
+}
+.nav-link:hover { color: var(--brand-600); transform: translateY(-1px); }
+
+/* Button variants */
+.btn-primary {
+  @apply inline-flex items-center justify-center px-4 py-2 rounded-md text-white font-medium shadow-sm;
+  background: linear-gradient(180deg,var(--brand-500),var(--brand-600));
+  box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+}
+.btn-outline {
+  @apply inline-flex items-center justify-center px-4 py-2 rounded-md text-[color:var(--brand-600)] font-medium border;
+  border-color: rgba(29,78,216,0.12);
+  background: transparent;
+}
+.btn-ghost {
+  @apply inline-flex items-center justify-center px-3 py-2 rounded-md text-sm text-gray-700;
+}
+
+/* Card */
+.card-soft {
+  background: var(--card-bg);
+  border: 1px solid rgba(15,23,42,0.04);
+  box-shadow: 0 6px 20px rgba(2,6,23,0.04);
+  border-radius: .75rem;
+}
+
+/* Footer */
+.site-footer {
+  background: linear-gradient(180deg,#0f172a 0%, #0b1220 100%);
+  color: #c7d2fe;
+}
+.site-footer a { color: rgba(199,210,254,0.9); }
+.site-footer a:hover { color: #fff; }
+
+/* Utilities for hero highlight */
+.hero-accent {
+  background: linear-gradient(90deg, rgba(99,102,241,0.12), rgba(59,130,246,0.06));
+  padding: .25rem .5rem;
+  border-radius: .375rem;
+  color: var(--brand-600);
+  font-weight: 600;
+}

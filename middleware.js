@@ -24,14 +24,14 @@ export default withAuth(
     // dashboard route protection
     if (typeof pathname === 'string' && pathname.startsWith("/dashboard")) {
       if (!token) {
-        return NextResponse.redirect(new URL("/signin", req.url));
+        return NextResponse.redirect(new URL("/auth/signin", req.url));
       }
     }
 
     // learning routes protection
     if (typeof pathname === 'string' && pathname.startsWith("/learn")) {
       if (!token) {
-        return NextResponse.redirect(new URL("/signin", req.url));
+        return NextResponse.redirect(new URL("/auth/signin", req.url));
       }
     }
     return NextResponse.next();

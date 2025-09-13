@@ -2,12 +2,12 @@
 import React from 'react'
 import { useState } from 'react'
 import Link from 'next/link'
-import { signIn, getSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import {useRouter, useSearchParams} from 'next/navigation'
 import {Card, CardContent, CardHeader, CardTitle, Button, Label, Input, LoadingSpinner} from '@/components/ui/index'
 import toast from 'react-hot-toast'
 
-const page = () => {
+const signin = () => {
     const [formData, setFormData] = useState({email:"", password:""})
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
@@ -53,7 +53,7 @@ const page = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md card-soft">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold text-gray-900">
             Sign in to your account
@@ -67,7 +67,7 @@ const page = () => {
           <div className="space-y-3">
             <Button
               variant="outline"
-              className="w-full"
+              className="w-full hover:bg-gray-50 transition"
               onClick={() => handleOAuthSignIn('google')}
             >
               <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
@@ -80,7 +80,7 @@ const page = () => {
             </Button>
             <Button
               variant="outline"
-              className="w-full"
+              className="w-full hover:bg-gray-50 transition"
               onClick={() => handleOAuthSignIn('github')}
             >
               <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
@@ -179,4 +179,4 @@ const page = () => {
   )
 }
 
-export default page
+export default signin
