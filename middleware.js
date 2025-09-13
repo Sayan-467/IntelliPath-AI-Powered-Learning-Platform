@@ -3,34 +3,35 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   (req) => {
-    const token = req.nextauth.token;
-    const pathname = req.nextauth.pathname;
+    // derive token and pathname defensively to avoid undefined errors in different runtimes
+    const token = req.nextauth?.token ?? undefined;
+    const pathname = req.nextauth?.pathname ?? (req.nextUrl && req.nextUrl.pathname) ?? (typeof req.url === 'string' ? new URL(req.url).pathname : undefined);
 
     // admin routes protection
-    if (pathname.startsWith("/admin")) {
+    if (typeof pathname === 'string' && pathname.startsWith("/admin")) {
       if (!token || token.role !== "admin") {
         return NextResponse.redirect(new URL("/dashboard", req.url));
       }
     }
 
     // instructor routes protection
-    if (pathname.startsWith("/instructor")) {
+    if (typeof pathname === 'string' && pathname.startsWith("/instructor")) {
       if (!token || (token.role !== "instructor" && token.role !== "admin")) {
         return NextResponse.redirect(new URL("/dashboard", req.url));
       }
     }
 
     // dashboard route protection
-    if (pathname.startsWith("/dashboard")) {
+    if (typeof pathname === 'string' && pathname.startsWith("/dashboard")) {
       if (!token) {
-        return NextResponse.redirect(new URL("/auth/signin", req.url));
+        return NextResponse.redirect(new URL("/signin", req.url));
       }
     }
 
     // learning routes protection
-    if (pathname.startsWith("/learn")) {
+    if (typeof pathname === 'string' && pathname.startsWith("/learn")) {
       if (!token) {
-        return NextResponse.redirect(new URL("/auth/signin", req.url));
+        return NextResponse.redirect(new URL("/signin", req.url));
       }
     }
     return NextResponse.next();
@@ -42,6 +43,7 @@ export default withAuth(
         // public routes 
         if (
           pathname.startsWith("/auth") ||
+          pathname.startsWith("/signin") ||
           pathname === "/" ||
           pathname.startsWith("/courses") ||
           pathname.startsWith("/api/auth") ||
